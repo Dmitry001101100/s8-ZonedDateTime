@@ -5,7 +5,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 class Practicum {
-    // Задайте форматирование для времени и даты в формате часы:минуты день.месяц.год
+    // Задайте форматирование для времени и даты в формате часы:минуты день. месяц .год
     // Пример - 12:15 02.11.21
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm dd.MM.yy");
     // Задайте форматирование для времени в формате часы:минуты
@@ -86,7 +86,7 @@ class Practicum {
         Duration flightDuration = Duration.ofHours(flightDurationHours).plusMinutes(flightDurationMinutes);
         // Найдите время прибытия с учётом зоны прилёта.
         ZoneId zoneArrivalAirpirt = ZoneId.of(arrivalAirport.getZone());
-        ZonedDateTime arrival = LocalDateTime.parse(formattedDepartureTime,DATE_TIME_FORMATTER).plus(flightDuration).atZone(zoneArrivalAirpirt);
+        ZonedDateTime arrival = departure.withZoneSameInstant(zoneArrivalAirpirt).plus(flightDuration);
 
         // Заполните данные для передачи в метод печати билета.
         // Город вылета
@@ -121,9 +121,9 @@ class Practicum {
             // Выведите продолжительность задержки в формате часы:минуты
             System.out.println("Задержка: " + delayDuration.toHours()+":"+delayDuration.toMinutes());
             // Выведите отформатированное время вылета с учётом задержки.
-            System.out.println("Обновлённое время вылета: " + departureWithDelay.format(TIME_FORMATTER));
+            System.out.println("Обновлённое время вылета: " + departureWithDelay.format(DATE_TIME_FORMATTER));
             // Выведите отформатированное время прилёта с учётом задержки.
-            System.out.println("Обновлённое время прилёта: " + arrivalWithDelay.format(TIME_FORMATTER));
+            System.out.println("Обновлённое время прилёта: " + arrivalWithDelay.format(DATE_TIME_FORMATTER));
         } else {
             System.out.println("Удачного полёта!");
         }
